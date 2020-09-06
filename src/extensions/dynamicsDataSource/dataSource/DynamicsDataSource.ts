@@ -18,7 +18,7 @@ export class Dynamics365DataSource extends BaseDataSourceProvider<IDataSourceDat
     public async getData(): Promise<IDataSourceData> {
 
         const apiUrl = `${this.ctx.pageContext.web.absoluteUrl}/_api/web/GetStorageEntity('${AAD_CONNECT_STORAGE_ENTITY}')`;
-        const storageEntity = await this.ctx.spHttpClient.get(apiUrl, SPHttpClient.configurations.v1).then(data => data.json());
+        const storageEntity = await this.ctx.spHttpClient.get(apiUrl, SPHttpClient.configurations.v1).then(storageData => storageData.json());
 
         if (storageEntity && storageEntity.Value) {
             this.clientId = storageEntity.Value;
