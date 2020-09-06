@@ -1,6 +1,6 @@
 import { BaseDataSourceProvider, IDataSourceData } from "@valo/extensibility";
 import { IPropertyPaneGroup, PropertyPaneTextField } from '@microsoft/sp-webpart-base';
-import { HttpClient, SPHttpClient, IHttpClientOptions } from '@microsoft/sp-http';
+import { HttpClient, SPHttpClient } from '@microsoft/sp-http';
 import * as Msal from "msal";
 
 const AAD_CONNECT_STORAGE_ENTITY = "ValoAadClientId";
