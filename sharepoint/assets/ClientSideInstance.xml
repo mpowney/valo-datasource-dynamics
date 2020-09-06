@@ -1,0 +1,9 @@
+<?xml version="1.0" encoding="utf-8"?>
+<Elements xmlns="http://schemas.microsoft.com/sharepoint/">
+    <ClientSideComponentInstance
+        Title="DynamicsDataSource"
+        Location="ClientSideExtension.ApplicationCustomizer"
+        ComponentId="b316a438-b364-43ab-9a42-a42ea6fe7234"
+        Properties="{&quot;testMessage&quot;:&quot;Test message&quot;}">
+    </ClientSideComponentInstance>
+</Elements>
