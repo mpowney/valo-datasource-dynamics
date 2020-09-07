@@ -1,8 +1,8 @@
-# valo-datasource-dynamics
+# Valo Custom Data Source - Dynamics 365
 
 ## Summary
 
-Short summary on functionality and used technologies.
+This extension to the Valo Universal Web Part demonstrates the ability to connect to Dynamics 365 data.
 
 [picture of the solution in action, if possible]
 
@@ -19,20 +19,24 @@ Short summary on functionality and used technologies.
 
 ## Prerequisites
 
-> Any special pre-requisites?
+* Target Microsoft 365 tenant must first have Valo Modern installed
+* The Valo Modern app registration in the target environment must be configured to allow delegated API permissions to the Dynamics CRM (Common Data Service) API
+
+Once this solution is added to the SharePoint app catalog, a new data source is added to the Valo Universal Web Part.
+
+![Data Sources in the Valo Universal Web Part](./screenshot-uwp-data-source.png | width=100)
 
 ## Solution
 
 Solution|Author(s)
 --------|---------
-folder name | Author details (name, company, twitter alias with link)
+valo-datasource-dynamics | Mark Powney, Valo [@mpowney](https://twitter.com/mpowney)
 
 ## Version history
 
 Version|Date|Comments
 -------|----|--------
-1.1|March 10, 2021|Update comment
-1.0|January 29, 2021|Initial release
+0.0.1|September 7, 2020|Initial release
 
 ## Disclaimer
 
@@ -48,17 +52,20 @@ Version|Date|Comments
   - **npm install**
   - **gulp serve**
 
-> Include any additional steps as needed.
-
 ## Features
 
-Description of the extension that expands upon high-level summary above.
+This solution allows page authors and site owners to connect the Valo Universal Web Part to Dynamics 365 Customer Experience data.
 
-This extension illustrates the following concepts:
+For this solution to work, the target environment must first be configured to securely enable access from the Valo modern site to Dynamics 365 APIs.  The Valo Tokens app, found in the App Registrations of Azure Active Directory, must have the **Dynamics CRM** delegate permission added, and admin consent must then be granted.
 
-- topic 1
-- topic 2
-- topic 3
+![App registrations in Azure Active Directory](./app-registration.png)
+
+After the solution is deployed, a new data source is offered in the Universal Web Part properties.  Once selected, the data source accepts an API URL from the [Dynamics Customer Engagement Web API](https://docs.microsoft.com/en-us/dynamics365/customer-engagement/web-api/about?view=dynamics-ce-odata-9)
+
+This extension provides the following capability
+
+- Authentication to Dynamics 365 CRM Common Data Service via Azure Active Directory
+- Provide Common Data Service as a source of data for Valo Universal Web Part templates
 
 > Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions advance.
 

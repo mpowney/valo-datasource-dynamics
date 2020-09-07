@@ -41,7 +41,7 @@ export class Dynamics365DataSource extends BaseDataSourceProvider<IDataSourceDat
             }
         });
         if (data && data.ok) {
-            return { items: [await data.json()] };
+            return await data.json();
         }
   
         return { items: [] };
