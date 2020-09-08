@@ -22,7 +22,7 @@ This extension to the Valo Universal Web Part demonstrates the ability to connec
 
 Once this solution is added to the SharePoint app catalog, a new data source is available in the Valo Universal Web Part.
 
-<img src="./screenshot-uwp-data-source.png" style="max-width: 200px;" alt="Data Sources in the Valo Universal Web Part" />
+<img src="./screenshot-uwp-data-source.png" width="200" alt="Data Sources in the Valo Universal Web Part" />
 
 ## Solution
 
@@ -56,7 +56,7 @@ This solution allows page authors and site owners to connect the Valo Universal 
 
 For this solution to work, the target environment must first be configured to securely enable access from the Valo modern site to Dynamics 365 APIs.  The Valo Tokens app, found in the App Registrations of Azure Active Directory, must have the **Dynamics CRM** delegate permission added, and admin consent must then be granted.
 
-<img src="./screenshot-app-registration.png" style="max-width: 800px;" alt="App registrations in Azure Active Directory" />
+<img src="./screenshot-app-registration.png" width="800" alt="App registrations in Azure Active Directory" />
 
 After the solution is deployed, a new data source is offered in the Universal Web Part properties.  Once selected, the data source accepts an API URL from the [Dynamics Customer Engagement Web API](https://docs.microsoft.com/en-us/dynamics365/customer-engagement/web-api/about?view=dynamics-ce-odata-9)
 
