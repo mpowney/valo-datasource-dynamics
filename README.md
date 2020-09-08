@@ -22,9 +22,9 @@ This extension to the Valo Universal Web Part demonstrates the ability to connec
 * Target Microsoft 365 tenant must first have Valo Modern installed
 * The Valo Modern app registration in the target environment must be configured to allow delegated API permissions to the Dynamics CRM (Common Data Service) API
 
-Once this solution is added to the SharePoint app catalog, a new data source is added to the Valo Universal Web Part.
+Once this solution is added to the SharePoint app catalog, a new data source is available in the Valo Universal Web Part.
 
-![Data Sources in the Valo Universal Web Part](./screenshot-uwp-data-source.png | width=100)
+<img src="./screenshot-uwp-data-source.png" style="max-width: 200px;" alt="Data Sources in the Valo Universal Web Part" />
 
 ## Solution
 
@@ -58,7 +58,7 @@ This solution allows page authors and site owners to connect the Valo Universal 
 
 For this solution to work, the target environment must first be configured to securely enable access from the Valo modern site to Dynamics 365 APIs.  The Valo Tokens app, found in the App Registrations of Azure Active Directory, must have the **Dynamics CRM** delegate permission added, and admin consent must then be granted.
 
-![App registrations in Azure Active Directory](./app-registration.png)
+<img src="./screenshot-app-registration.png" style="max-width: 800px;" alt="App registrations in Azure Active Directory" />
 
 After the solution is deployed, a new data source is offered in the Universal Web Part properties.  Once selected, the data source accepts an API URL from the [Dynamics Customer Engagement Web API](https://docs.microsoft.com/en-us/dynamics365/customer-engagement/web-api/about?view=dynamics-ce-odata-9)
 
@@ -73,8 +73,6 @@ This extension provides the following capability
 
 ## References
 
+- [Use the Common Data Service Web API](https://docs.microsoft.com/en-us/powerapps/developer/common-data-service/webapi/overview)
 - [Getting started with SharePoint Framework](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/set-up-your-developer-tenant)
-- [Building for Microsoft teams](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/build-for-teams-overview)
-- [Use Microsoft Graph in your solution](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/web-parts/get-started/using-microsoft-graph-apis)
-- [Publish SharePoint Framework applications to the Marketplace](https://docs.microsoft.com/en-us/sharepoint/dev/spfx/publish-to-marketplace-overview)
 - [Microsoft 365 Patterns and Practices](https://aka.ms/m365pnp) - Guidance, tooling, samples and open-source controls for your Microsoft 365 development
