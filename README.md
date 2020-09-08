@@ -4,8 +4,6 @@
 
 This extension to the Valo Universal Web Part demonstrates the ability to connect to Dynamics 365 data.
 
-[picture of the solution in action, if possible]
-
 ## Used SharePoint Framework Version
 
 ![version](https://img.shields.io/badge/version-1.11-green.svg)
@@ -62,14 +60,10 @@ For this solution to work, the target environment must first be configured to se
 
 After the solution is deployed, a new data source is offered in the Universal Web Part properties.  Once selected, the data source accepts an API URL from the [Dynamics Customer Engagement Web API](https://docs.microsoft.com/en-us/dynamics365/customer-engagement/web-api/about?view=dynamics-ce-odata-9)
 
-This extension provides the following capability
+This extension provides the following capability:
 
 - Authentication to Dynamics 365 CRM Common Data Service via Azure Active Directory
-- Provide Common Data Service as a source of data for Valo Universal Web Part templates
-
-> Notice that better pictures and documentation will increase the sample usage and the value you are providing for others. Thanks for your submissions advance.
-
-> Share your web part with others through Microsoft 365 Patterns and Practices program to get visibility and exposure. More details on the community, open-source projects and other activities from http://aka.ms/m365pnp.
+- A new data source for Valo Universal Web Part templates, to leverage the Dynamice 365 Common Data Service
 
 ## References
 
