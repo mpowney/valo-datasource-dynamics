@@ -4,6 +4,12 @@
         Title="DynamicsDataSource"
         Location="ClientSideExtension.ApplicationCustomizer"
         ComponentId="b316a438-b364-43ab-9a42-a42ea6fe7234"
-        Properties="{&quot;testMessage&quot;:&quot;Test message&quot;}">
+        Properties="">
+    </ClientSideComponentInstance>
+    <ClientSideComponentInstance
+        Title="ChainedDataSource"
+        Location="ClientSideExtension.ApplicationCustomizer"
+        ComponentId="ea8e2fe4-8d84-4c0b-a8b4-9a4238988734"
+        Properties="">
     </ClientSideComponentInstance>
 </Elements>

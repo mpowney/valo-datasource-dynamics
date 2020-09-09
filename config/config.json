@@ -7,12 +7,18 @@
         {
           "entrypoint": "./lib/extensions/dynamicsDataSource/DynamicsDataSourceApplicationCustomizer.js",
           "manifest": "./src/extensions/dynamicsDataSource/DynamicsDataSourceApplicationCustomizer.manifest.json"
+        },
+        {
+          "entrypoint": "./lib/extensions/chainedDataSource/ChainedDataSourceApplicationCustomizer.js",
+          "manifest": "./src/extensions/chainedDataSource/ChainedDataSourceApplicationCustomizer.manifest.json"
         }
       ]
     }
   },
   "externals": {},
   "localizedResources": {
-    "DynamicsDataSourceApplicationCustomizerStrings": "lib/extensions/dynamicsDataSource/loc/{locale}.js"
+    "DynamicsDataSourceApplicationCustomizerStrings": "lib/extensions/dynamicsDataSource/loc/{locale}.js",
+    "ChainedDataSourceApplicationCustomizerStrings": "lib/extensions/chainedDataSource/loc/{locale}.js",
+    "PropertyControlStrings": "node_modules/@pnp/spfx-property-controls/lib/loc/{locale}.js"
   }
 }
