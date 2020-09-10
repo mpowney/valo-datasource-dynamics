@@ -62,8 +62,8 @@ export class ChainedDataSource extends BaseDataSourceProvider<IDataSourceData> {
         this.propertyFieldCollectionData = PropertyFieldCollectionData;
         this.customCollectionFieldType = CustomCollectionFieldType;
 
-        const parametersControl = this.propertyFieldCollectionData("templateParams", {
-            key: "templateParams",
+        const parametersControl = this.propertyFieldCollectionData("apiUrl", {
+            key: "apiUrl",
             label: `API URLs`,
             panelHeader: "API chain",
             manageBtnLabel: "Configure API chain",
@@ -137,88 +137,88 @@ export class ChainedDataSource extends BaseDataSourceProvider<IDataSourceData> {
     
     public async initAuth() {
 
+        this.tenantId = this.ctx.pageContext.aadInfo.tenantId;
+        this.tenantUrl = this.ctx.pageContext.site.absoluteUrl.replace(this.ctx.pageContext.site.serverRelativeUrl, "");
 
         for (let x = 0; x < this.properties.apiUrl.length; x++ ) {
 
             const chainItem: any = this.properties.apiUrl[x];
-            const defaultAadScope = (chainItem.apiUrl && chainItem.apiUrl.indexOf("https://") > -1) ? `${chainItem.apiUrl.substring(0, chainItem.apiUrl.indexOf("/", 8))}/user_impersionation` : '';
+            const defaultAadScope = (chainItem.apiUrl && chainItem.apiUrl.indexOf("https://") > -1) ? `${chainItem.apiUrl.substring(0, chainItem.apiUrl.indexOf("/", 8))}/user_impersonation` : '';
             this.ensureMsalConfig(chainItem.clientId || this.clientId, true);
             this.ensureMsalLoginRequest(chainItem.clientId || this.clientId, chainItem.resource || defaultAadScope, this.ctx.pageContext.user.loginName);
+            console.log(`DynamicsDataSource scope = ${JSON.stringify([chainItem.clientId || this.clientId, chainItem.resource || defaultAadScope, this.ctx.pageContext.user.loginName])}`);
 
         }
 
 
-        console.log(`DynamicsDataSource scope = ${aadScope}/user_impersonation`);
-        this.msalLoginRequest = { 
-            scopes: [`${aadScope}/user_impersonation`],
-            loginHint: this.ctx.pageContext.user.loginName,
+        for (const key in this.msalLoginRequest) {
             
-        };
-
-        if (!this.msalInstance) {
-            if ((window as any).apiMsalInstance) {
-                this.msalInstance = (window as any).apiMsalInstance;
-            }
-            else {
-                this.msalInstance = new Msal.UserAgentApplication(this.msalConfig);
-                (window as any).apiMsalInstance = this.msalInstance;
-            }
-        }
-
-        if (this.msalInstance) {
-
-            this.msalInstance.handleRedirectCallback((error: any, response: any) => {
-                // handle redirect response or error
-                if (error) {
-                    console.log(`Error: ${error.errorMessage}`);
-                } else if (response) {
-                    console.log(`Response from MSAL: ${response.account}`);
-                }
-            });
-        
-        }
-
-        console.log(`Calling acquireTokenSilent()`);
-
-        try {
-            this.msalAuthResponse = await ChainedDataSource.acquireTokenSilent(this.msalLoginRequest);
-        } catch (err) {
-            console.log(err);
-        }
-
-    }
-
-    private static async acquireTokenSilent(msalLoginRequest: Msal.AuthenticationParameters): Promise<Msal.AuthResponse | undefined> {
-        if (ChainedDataSource.msalInstance) {
-            return ChainedDataSource.msalInstance().acquireTokenSilent(msalLoginRequest);
-        }
-        return undefined;
-    }
-
-    private static msalInstance(): Msal.UserAgentApplication {
-        return (window as any).apiMsalInstance;
-    }
-
-    private static renewAccessToken(msalLoginRequest: Msal.AuthenticationParameters) {
-        (window as any).apiMsalTokenTimeout = null;
-        ChainedDataSource.ensureRefresh(msalLoginRequest);
-    }
-
-    private static async ensureRefresh(msalLoginRequest: Msal.AuthenticationParameters) {
-
-        if (ChainedDataSource.msalInstance().getAccount()) {
-            const { DateTime } = require("luxon");
-            const expiresOn = (await ChainedDataSource.acquireTokenSilent(msalLoginRequest) as Msal.AuthResponse).expiresOn;
-            if (expiresOn) {
-                const diffDuration = DateTime.fromJSDate(expiresOn).diff(DateTime.local(), "seconds");
-                console.log(`render() accessTokenExpires diff ${JSON.stringify(diffDuration.seconds)}`);
-                window.clearTimeout((window as any).apiMsalTokenTimeout);
-                (window as any).apiMsalTokenTimeout = window.setTimeout(ChainedDataSource.renewAccessToken, diffDuration.seconds * 1000);
+            const loginRequests = this.msalLoginRequest[key];
+            this.msalInstance = new Msal.UserAgentApplication(this.msalConfig[key]);
     
+            if (this.msalInstance) {
+    
+                this.msalInstance.handleRedirectCallback((error: any, response: any) => {
+                    // handle redirect response or error
+                    if (error) {
+                        console.log(`Error: ${error.errorMessage}`);
+                    } else if (response) {
+                        console.log(`Response from MSAL: ${response.account}`);
+                    }
+                });
+            
             }
+    
+            console.log(`Calling acquireTokenSilent()`);
+    
+            try {
+                for (const loginRequestKey in loginRequests) {
+
+                    const authResponse = await this.msalInstance.acquireTokenSilent(loginRequests[loginRequestKey]);
+                    // const authResponse = await this.acquireTokenSilent(loginRequests[loginRequestKey]);
+                    console.log(authResponse);
+                }
+                
+            } catch (err) {
+                console.log(err);
+            }
+
         }
 
+
     }
+
+    // private async acquireTokenSilent(msalLoginRequest: Msal.AuthenticationParameters): Promise<Msal.AuthResponse | undefined> {
+    //     if (this.msalInstance) {
+    //         return this.msalInstance().acquireTokenSilent(msalLoginRequest);
+    //     }
+    //     return undefined;
+    // }
+
+    // private msalInstance(): Msal.UserAgentApplication {
+    //     return this.msalInstance;
+    // }
+
+    // private static renewAccessToken(msalLoginRequest: Msal.AuthenticationParameters) {
+    //     (window as any).apiMsalTokenTimeout = null;
+    //     ChainedDataSource.ensureRefresh(msalLoginRequest);
+    // }
+
+    // private static async ensureRefresh(msalLoginRequest: Msal.AuthenticationParameters) {
+
+    //     if (ChainedDataSource.msalInstance().getAccount()) {
+    //         const { DateTime } = require("luxon");
+    //         const expiresOn = (await ChainedDataSource.acquireTokenSilent(msalLoginRequest) as Msal.AuthResponse).expiresOn;
+    //         if (expiresOn) {
+    //             const diffDuration = DateTime.fromJSDate(expiresOn).diff(DateTime.local(), "seconds");
+    //             console.log(`render() accessTokenExpires diff ${JSON.stringify(diffDuration.seconds)}`);
+    //             window.clearTimeout((window as any).apiMsalTokenTimeout);
+    //             (window as any).apiMsalTokenTimeout = window.setTimeout(ChainedDataSource.renewAccessToken, diffDuration.seconds * 1000);
+    
+    //         }
+    //     }
+
+    // }
 
 
 
